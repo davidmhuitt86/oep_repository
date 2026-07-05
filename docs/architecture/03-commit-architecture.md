@@ -22,8 +22,8 @@ Commit {
   author               : Identity        // human, service, or AI agent identity
   timestamp            : RFC3339
   message              : string
-  object_changes       : [{ oid, from_revision?, to_revision }]
-  relationship_changes : [{ relationship_oid, from_revision?, to_revision }]
+  object_changes       : [{ eoid, from_revision?, to_revision }]
+  relationship_changes : [{ relationship_eoid, from_revision?, to_revision }]
   event_refs           : [EventID]       // Events this commit groups, in order
   validation_results   : [{ rule_id, outcome, detail_ref }]
   metadata             : map<string, any>   // extensible, capability-defined

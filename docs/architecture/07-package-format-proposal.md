@@ -1,6 +1,14 @@
-# Package Format Proposal — `.oep`
+# Package Format Proposal — `.oep` (SUPERSEDED)
 
-Status: Draft v0.1 · Proposal, open for revision before Milestone 1 freeze.
+Status: **Superseded (Sprint 0.5 Final Directive)** by
+[ADR-0014](../adr/ADR-0014-native-container-format.md) and the native
+format specification series,
+[16-native-container-format.md](16-native-container-format.md) through
+[20-package-maintenance.md](20-package-maintenance.md). Retained
+unmodified below as historical record of the ZIP-based proposal that was
+evaluated and ultimately rejected in favor of a native container — per ADR
+log conventions, superseded documents are not deleted or rewritten. Do
+not implement against this document.
 
 ## 1. Goal
 

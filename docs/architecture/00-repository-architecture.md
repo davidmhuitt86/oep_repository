@@ -56,13 +56,29 @@ never a sixth foundational primitive. When a future need appears to require
 a new fundamental concept, the correct response is to ask whether it can be
 expressed as an Engineering Object with a new type, a new Relationship
 type, or a new Capability — and only add a true new primitive if all three
-fail (see [ADR-0009](../adr/ADR-0009-closed-primitive-set.md)).
+fail (originally [ADR-0009](../adr/ADR-0009-closed-primitive-set.md)).
+
+**This is now a constitutional principle, not an ordinary architectural
+decision** (elevated in RC2 by
+[ADR-0012](../adr/ADR-0012-five-primitive-constitutional-amendment.md)):
+the platform shall not introduce additional foundational primitives
+without an explicit constitutional amendment — a decision requiring the
+same standing as the philosophy in
+[00](00-repository-architecture.md)'s own governing document, not a
+routine ADR that a later Sprint can casually supersede. Every architecture
+document in this set has been reviewed under this rule as part of RC2 (see
+[ADR-0012](../adr/ADR-0012-five-primitive-constitutional-amendment.md)
+§Consequences for findings).
 
 ## 4. System boundary
 
 The Repository's contract is the only thing every future component must
 agree on. Everything on the right is a *client* of the Repository, never a
-peer with private access to its storage.
+peer with private access to its storage. As of RC2, "the Repository" in
+this diagram spans three internally-layered concerns — Package,
+Repository (version history), and Object Store — detailed in
+[10-layered-architecture.md](10-layered-architecture.md); the diagram
+below shows the external boundary, not the internal layering.
 
 ```
                          ┌───────────────────────────────────────┐
@@ -76,11 +92,9 @@ peer with private access to its storage.
                                              │  Operations, Events,
                                              │  Commits, Branches)
                          ┌───────────────────▼─────────────────────┐
-                         │              OEP Repository              │
-                         │  Object Store · Relationship Index       │
-                         │  Event Store · Commit Store · Branches   │
-                         │  Transaction Journal · Search Indexes    │
-                         │  Integrity / Signing · Packaging         │
+                         │        OEP Repository (3 layers)         │
+                         │  Package · Repository · Object Store —   │
+                         │  see 10-layered-architecture.md            │
                          └───────────────────┬─────────────────────┘
                                              │ Storage Capability
                                              │ contracts (BlobStore,

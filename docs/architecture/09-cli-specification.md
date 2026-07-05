@@ -27,15 +27,15 @@ oep status
     Operations pending in the workspace area.
 
 oep object create --type <type> --data <file|-> [--attr key=value ...]
-    Stages a new Engineering Object (assigns OID, revision 0) with the
+    Stages a new Engineering Object (assigns EOID, revision 0) with the
     given typed payload. Does not commit — staged in workspace
     (01-repository-specification.md §2) until `oep commit`.
 
-oep object show <oid> [--revision <revision-id>] [--history]
+oep object show <eoid> [--revision <revision-id>] [--history]
     Displays an object's current or specified revision; --history lists
-    the full revision chain (02-object-storage-architecture.md §3).
+    the full revision sequence (02-object-storage-architecture.md §3).
 
-oep relationship create --type <type> --from <oid> --to <oid> [--attr key=value ...]
+oep relationship create --type <type> --from <eoid> --to <eoid> [--attr key=value ...]
     Stages a Relationship object (02-object-storage-architecture.md §5).
 
 oep commit -m <message> [--sign]
@@ -44,9 +44,9 @@ oep commit -m <message> [--sign]
     (05-transaction-journal-architecture.md §5). --sign attaches a
     detached signature using the caller's configured Identity.
 
-oep log [--branch <name>] [--limit N] [--oid <oid>]
+oep log [--branch <name>] [--limit N] [--eoid <eoid>]
     Walks the commit DAG from a branch tip (default: current branch).
-    --oid filters to commits touching a specific Engineering Object.
+    --eoid filters to commits touching a specific Engineering Object.
 
 oep branch list
 oep branch create <name> [--from <branch|commit>] [--purpose <tag>]
@@ -76,7 +76,7 @@ oep unpack <input.oep> <path>
   04-branch-architecture.md §3; no CLI merge tool yet).
 - Remote synchronization (`oep push`/`pull` or equivalent) — deferred to
   the Engineering Exchange integration phase.
-- Query language / `oep search` beyond `--oid` filtering on `log`.
+- Query language / `oep search` beyond `--eoid` filtering on `log`.
 - Branch protection policy configuration (`oep branch protect ...`) —
   the mechanism is specified (04-branch-architecture.md §4) but no
   Milestone-1 command surface is required to exercise it.
@@ -104,7 +104,7 @@ oep init demo
 cd demo
 oep object create --type oep.core.Component --data component.json
 oep object create --type oep.core.Component --data sensor.json
-oep relationship create --type connects_to --from <oid1> --to <oid2>
+oep relationship create --type connects_to --from <eoid1> --to <eoid2>
 oep commit -m "Initial wiring"
 oep log
 oep checkout <commit-id>

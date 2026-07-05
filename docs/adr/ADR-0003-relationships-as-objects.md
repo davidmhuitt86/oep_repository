@@ -48,7 +48,7 @@ source of truth.
   Store directly for performance-sensitive access; this is a documented
   expectation, not an accident.
 - Every Provider needs a reasonably efficient way to answer "all
-  relationships touching OID X," which the Index capability
+  relationships touching EOID X," which the Index capability
   (06-storage-provider-abstraction.md §2.4) exists specifically to serve.
 
 ## Future Considerations

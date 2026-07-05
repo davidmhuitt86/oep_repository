@@ -1,6 +1,17 @@
 # Transaction Journal Architecture
 
-Status: Draft v0.1 · Defines the write-ahead journal every mutation passes through.
+Status: Draft v0.2 (RC2) · Defines the write-ahead journal every mutation passes through.
+
+**Binding invariant (restated explicitly for RC2):** the journal is
+strictly append-only. A repository mutation never overwrites an existing
+journal entry — not to correct it, not to compact it, not for any reason.
+Every entry, once durably written, is permanent for as long as the segment
+containing it exists; the only lifecycle event that removes an entry is
+whole-segment retirement under §6, and only after every consumer that
+could need it (crash recovery, sync peers) has moved past it. This
+invariant is what every other guarantee in this document — recovery,
+replay, and auditability — is built on, so it is stated here as a rule,
+not inferred from the mechanism.
 
 ## 1. Why a journal is mandatory, not an optimization
 
@@ -101,7 +112,17 @@ replication peer still needs MAY be archived or compacted, but never
 silently deleted while `Pending`/unconfirmed-synced entries exist within
 them. Segment rotation is a Provider-level implementation detail; the
 logical journal (as a chained sequence) is what implementations must
-preserve, not any particular file boundary.
+preserve, not any particular file boundary. Rotation removes whole
+segments; it never rewrites or truncates an entry within a segment still
+in use — consistent with the append-only invariant stated at the top of
+this document.
+
+Deeper operational concerns — physical segment layout, compaction
+strategy, and long-term maintenance procedures for a journal that has been
+running for years — are specified in
+[12-repository-internals-lifecycle-and-maintenance.md](12-repository-internals-lifecycle-and-maintenance.md),
+which treats the journal as one of several long-lived stores needing a
+maintenance strategy.
 
 ## 7. What the journal is not
 

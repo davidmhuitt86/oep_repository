@@ -1,6 +1,12 @@
 # ADR-0002: UUIDv7 permanent identity + hash-chained revisions
 
-Status: Accepted
+Status: Accepted — **partially superseded by [ADR-0010](ADR-0010-three-part-identity.md)**.
+The EOID/UUIDv7 decision below stands. The "Revisions are separately
+identified via a hash chain" clause in Selected Solution and the
+"Revision chaining ties every content change..." clause in Consequences
+are superseded: Revision ID is now a sequential, non-content-derived
+identity independent of Content Hash — see ADR-0010 and
+[02-object-storage-architecture.md](../architecture/02-object-storage-architecture.md) §1-3.
 
 ## Context
 
@@ -30,7 +36,7 @@ and standardized enough to trust for a multi-decade format?
 ## Selected Solution
 
 UUIDv7 for Object IDs. Revisions are separately identified via a hash
-chain: `RevisionID = Hash(OID || revision_index || content_hash || previous_revision_id || commit_id)`.
+chain: `RevisionID = Hash(EOID || revision_index || content_hash || previous_revision_id || commit_id)`.
 
 ## Rationale
 

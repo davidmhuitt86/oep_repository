@@ -64,7 +64,7 @@ existing library support across languages.
 | Threat | Mechanism that catches it |
 |---|---|
 | Bit rot / storage corruption | Content hash mismatch on read |
-| Tampering with a past revision | Revision hash chain breaks ([02](02-object-storage-architecture.md) §3) |
+| Tampering with a past revision's content | Content Hash mismatch on recompute ([02](02-object-storage-architecture.md) §1, §4); the enclosing Commit's hash also changes, cascading through the DAG |
 | Tampering with commit history | Commit hash changes, all descendant commit hashes change, signatures (if present) fail |
 | Forged authorship | Signature verification fails against claimed Identity's public key |
 | Undetected partial/incomplete package | `package_kind` + package-level signature ([07](07-package-format-proposal.md) §5–6) |
